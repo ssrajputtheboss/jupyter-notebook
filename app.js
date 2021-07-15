@@ -49,10 +49,8 @@ io.on("connection",(socket)=>{
         const {input,index} = data
         const lines = input.split('\n')
         const lastLineHasIndent = lines[lines.length-1].startsWith(" ") || lines[lines.length-1].startsWith("\t")
-        if(lastLineHasIndent)
-            input+="\n"
         lastIndex=index
-        python.stdin.write(input+"\n")
+        python.stdin.write(input+"\n"+(lastLineHasIndent?'\n':''))
     })
 
     socket.on( "disconnect",()=>console.log('disconnected') )
