@@ -28,7 +28,7 @@ python.stdout.on("data",(chunk)=>{
 })
 
 python.stderr.on('data',(chunk)=>{
-    const o = chunk.toString().replace(/>>>/ig,'')
+    const o = chunk.toString().replace(/>>>|\.\.\./ig,'')
     io.sockets.emit('out',{output:o,index:lastIndex})
 })
 

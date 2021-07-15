@@ -10,7 +10,7 @@ window.onkeydown=(e)=>{
 
 socket.on('out',({output,index})=>{
     const p = document.getElementById('output-'+index)
-    p.innerHTML += output
+    p.innerHTML += output.replace(/\n/g,'<br>')
     p.style.display = 'block'
     notebooks[index].i = notebooks[index].e.getValue()
     notebooks[index].o += output 
