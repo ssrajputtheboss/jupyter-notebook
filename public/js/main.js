@@ -1,4 +1,4 @@
-const socket = io('http://localhost:7000/',{extraHeaders:{authentication:'jwt token'}})
+const socket = io('http://localhost:7000/',{extraHeaders:{authentication:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGkiOiJ3YWxsYWgtaGFiaWJpIiwiaWF0IjoxNjI2MzUwMTIyfQ.9_snipgTQp1MoSibxFrk5vcaKuqNql3KyOR-9-yd6aY'}})
 const notebooks = []
 
 window.onkeydown=(e)=>{
@@ -8,9 +8,20 @@ window.onkeydown=(e)=>{
     }
 }
 
+function modifyOutput(output){
+    return output.replace(/&/g,'&amp;').
+        replace(/"/g,'&quot;').
+        replace(/'/g,'&apos;').
+        replace(/ |\t/g,'&nbsp;').
+        replace('<','&lt;').
+        replace(/>/g,'&gt;').
+        replace(/\n/g,'<br>')
+}
+
 socket.on('out',({output,index})=>{
+    output = modifyOutput(output)
     const p = document.getElementById('output-'+index)
-    p.innerHTML += output.replace(/\n/g,'<br>')
+    p.innerHTML += output
     p.style.display = 'block'
     notebooks[index].i = notebooks[index].e.getValue()
     notebooks[index].o += output 
