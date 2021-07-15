@@ -47,6 +47,10 @@ io.on("connection",(socket)=>{
 
     socket.on("in",(data)=>{
         const {input,index} = data
+        const lines = input.split('\n')
+        const lastLineHasIndent = lines[lines.length-1].startsWith(" ") || lines[lines.length-1].startsWith("\t")
+        if(lastLineHasIndent)
+            input+="\n"
         lastIndex=index
         python.stdin.write(input+"\n")
     })
