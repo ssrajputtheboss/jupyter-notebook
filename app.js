@@ -14,7 +14,7 @@ const SECRET = process.env.SECRET
 jwt.sign({api:'wallah-habibi'},SECRET||'secret',(err,token)=>console.log(token))
 const io = new Server(server ,{ cors : { origin: "*" } })
 
-const python = spawn('python',['-i'])
+const python = spawn('python -i',{shell:true})
 
 let lastIndex = 0
 //python.stdin.write('print("test")\n')
